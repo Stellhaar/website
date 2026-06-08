@@ -5,8 +5,8 @@ import { business, legal } from '../../siteData';
  * Impressum (Anbieterkennzeichnung) nach § 5 DDG + heilberufliche Pflichtangaben.
  *
  * ⚠️ Rechtshinweis: Dieser Text ist ein sorgfältig recherchierter Entwurf, keine
- * Rechtsberatung. Inhalte (insb. Aufsichtsbehörde, Berufshaftpflicht) vor
- * Veröffentlichung anwaltlich/durch die Psychotherapeutenkammer prüfen lassen.
+ * Rechtsberatung. Inhalte (insb. Aufsichtsbehörde) vor Veröffentlichung
+ * anwaltlich/durch die Psychotherapeutenkammer prüfen lassen.
  * Quelle der Pflichtangaben: Merkblatt „Websites von P, PP und KJP" der
  * Psychotherapeutenkammer Berlin.
  */
@@ -67,14 +67,6 @@ export default function Impressum() {
         <a href={legal.regelungenFundstelle} target="_blank" rel="noopener noreferrer">
           {legal.regelungenFundstelle.replace(/^https?:\/\//, '')}
         </a>
-      </p>
-
-      <h2>Berufshaftpflichtversicherung</h2>
-      <p>
-        <strong>Versicherer:</strong> {legal.berufshaftpflicht.versicherer}
-        <br />
-        <strong>Räumlicher Geltungsbereich:</strong>{' '}
-        {legal.berufshaftpflicht.geltungsbereich}
       </p>
 
       <h2>Umsatzsteuer</h2>

@@ -40,13 +40,13 @@ Google Maps). **Keine Rechtsberatung** — vor Go-Live anwaltlich bzw. über die
 Kammer prüfen lassen.
 
 ## ⚠️ Vor Go-Live klären (Platzhalter)
-1. **Domain:** Im Code gesetzt auf `www.psychotherapie-stella-savelsberg.de`
-   (`SITE_URL` + `index.html`, `robots.txt`, `sitemap.xml`, `llms.txt`). Noch zu tun:
-   Domain in Vercel (Settings → Domains) hinzufügen und DNS beim Registrar verbinden
-   (CNAME `www` → `cname.vercel-dns.com`, A `@` → von Vercel gezeigte IP; apex → www).
+1. ✅ **Domain:** `www.psychotherapie-stella-savelsberg.de` ist live (Vercel + DNS
+   verbunden, SSL aktiv, apex → www).
 2. **Geo-Koordinaten:** `business.geo` exakt verifizieren.
-3. **Berufshaftpflicht:** `legal.berufshaftpflicht` mit echtem Versicherer füllen.
-4. **Aufsichtsbehörde:** `legal.aufsicht` bestätigen (laut Kammer-Merkblatt).
-5. **Hero-Foto:** `public/assets/stella-sessel-fenster.jpg` trägt ein
+3. **Aufsichtsbehörde:** `legal.aufsicht` bestätigen (laut Kammer-Merkblatt).
+4. **Hero-Foto:** `public/assets/stella-sessel-fenster.jpg` trägt ein
    „NUR ZUR AUSWAHL"-Wasserzeichen → lizenzierte Datei einsetzen (© Dieter Düvelmeyer).
-6. **Rechtstexte** final anwaltlich prüfen (siehe oben).
+5. **Rechtstexte** final anwaltlich prüfen (siehe oben).
+
+> Hinweis: Die Berufshaftpflicht-Angabe ist keine Impressumspflicht (§ 5 DDG);
+> sie wird gemäß § 2 DL-InfoV persönlich vor dem Erstgespräch mitgeteilt.

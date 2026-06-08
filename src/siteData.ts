@@ -10,7 +10,6 @@
  *     (DNS muss in Vercel + beim Registrar noch verbunden werden).
  *   - business.geo: Koordinaten sind angenähert → exakte Lat/Lng verifizieren
  *     (z. B. über Google Maps Rechtsklick auf die Praxis-Adresse).
- *   - legal.berufshaftpflicht: tatsächliche Versicherung eintragen.
  *   - legal.aufsicht: laut Kammer-Merkblatt zuständig – vor Go-Live bestätigen.
  *   - Hero-Foto: assets/stella-sessel-fenster.jpg trägt noch ein Wasserzeichen
  *     ("NUR ZUR AUSWAHL") → lizenzierte Datei einsetzen (© Dieter Düvelmeyer).
@@ -59,8 +58,6 @@ export const legal = {
     'Heilberufsgesetz Berlin (HeilBG Berlin)',
   ],
   regelungenFundstelle: 'https://www.psychotherapeutenkammer-berlin.de',
-  // ⚠️ Platzhalter – tatsächliche Berufshaftpflicht eintragen.
-  berufshaftpflicht: { versicherer: '— (vor Go-Live eintragen) —', geltungsbereich: 'Deutschland' },
 } as const;
 
 export interface FaqItem {
