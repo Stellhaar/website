@@ -17,8 +17,31 @@ const MapPin = () => (
  */
 export default function Kontakt() {
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [name, setName] = useState('');
+  const [telefon, setTelefon] = useState('');
+  const [nachricht, setNachricht] = useState('');
   const addr = `${business.street}, ${business.postalCode} ${business.city}`;
   const mapQuery = encodeURIComponent(addr);
+
+  // Öffnet das E-Mail-Programm der/des Besucher:in mit vorausgefüllter Nachricht
+  // an Stella (mailto). Es werden keine Daten an die Website oder einen Server
+  // übertragen.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const subject = 'Anfrage über die Website';
+    const lines: string[] = [];
+    if (telefon.trim()) {
+      lines.push(`Telefon für Rückruf: ${telefon.trim()}`, '');
+    }
+    lines.push(nachricht.trim());
+    if (name.trim()) {
+      lines.push('', 'Viele Grüße', name.trim());
+    }
+    const body = lines.join('\r\n');
+    window.location.href = `mailto:${business.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+  };
 
   return (
     <section className="sec ct" id="kontakt" aria-labelledby="kontakt-h">
@@ -32,9 +55,50 @@ export default function Kontakt() {
             Schreiben Sie mir eine kurze Nachricht mit Ihrem Anliegen. Ich melde mich
             mit Terminvorschlägen.
           </p>
-          <a href={`mailto:${business.email}`} className="pill">
-            E-Mail schreiben
-          </a>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label htmlFor="cf-name">Name</label>
+            <input
+              id="cf-name"
+              name="name"
+              type="text"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <label htmlFor="cf-telefon">
+              Telefon <span className="opt">(optional, für einen Rückruf)</span>
+            </label>
+            <input
+              id="cf-telefon"
+              name="telefon"
+              type="tel"
+              autoComplete="tel"
+              value={telefon}
+              onChange={(e) => setTelefon(e.target.value)}
+            />
+
+            <label htmlFor="cf-nachricht">Ihre Nachricht</label>
+            <textarea
+              id="cf-nachricht"
+              name="nachricht"
+              rows={5}
+              required
+              value={nachricht}
+              onChange={(e) => setNachricht(e.target.value)}
+            />
+
+            <button type="submit" className="pill">
+              E-Mail schreiben
+            </button>
+            <p className="form-hint">
+              Beim Absenden öffnet sich Ihr eigenes E-Mail-Programm mit einer
+              vorbereiteten Nachricht an mich. Es werden keine Daten an diese Website
+              übertragen. Bitte senden Sie zunächst keine sensiblen Gesundheitsdaten.
+            </p>
+          </form>
         </div>
         <div className="reveal">
           <div className="r">

@@ -151,6 +151,13 @@ export default function Datenschutz() {
         Daten werden gelöscht, sobald Ihre Anfrage abschließend bearbeitet ist und
         keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
       </p>
+      <p>
+        Das Kontaktformular auf dieser Website nutzt die „mailto"-Funktion: Beim
+        Absenden öffnet sich Ihr eigenes E-Mail-Programm mit einer vorausgefüllten
+        Nachricht. Es werden dabei <strong>keine</strong> Formulardaten an den Server
+        dieser Website oder an Dritte übertragen; der Versand erfolgt ausschließlich
+        über Ihr eigenes E-Mail-Konto.
+      </p>
 
       <h2>8. SSL-/TLS-Verschlüsselung</h2>
       <p>
