@@ -40,8 +40,10 @@ Google Maps). **Keine Rechtsberatung** — vor Go-Live anwaltlich bzw. über die
 Kammer prüfen lassen.
 
 ## ⚠️ Vor Go-Live klären (Platzhalter)
-1. **Domain:** `SITE_URL` in `src/siteData.ts` und die absoluten URLs in
-   `index.html`, `robots.txt`, `sitemap.xml`, `llms.txt` auf die echte Domain setzen.
+1. **Domain:** Im Code gesetzt auf `www.psychotherapie-stella-savelsberg.de`
+   (`SITE_URL` + `index.html`, `robots.txt`, `sitemap.xml`, `llms.txt`). Noch zu tun:
+   Domain in Vercel (Settings → Domains) hinzufügen und DNS beim Registrar verbinden
+   (CNAME `www` → `cname.vercel-dns.com`, A `@` → von Vercel gezeigte IP; apex → www).
 2. **Geo-Koordinaten:** `business.geo` exakt verifizieren.
 3. **Berufshaftpflicht:** `legal.berufshaftpflicht` mit echtem Versicherer füllen.
 4. **Aufsichtsbehörde:** `legal.aufsicht` bestätigen (laut Kammer-Merkblatt).

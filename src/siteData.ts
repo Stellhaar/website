@@ -6,8 +6,8 @@
  * never drift apart.
  *
  * ⚠️  Vor Go-Live prüfen / ersetzen:
- *   - SITE_URL: echte Domain eintragen (Platzhalter – die E-Mail ist eine
- *     Gmail-Adresse, die tatsächliche Web-Domain steht noch nicht fest).
+ *   - SITE_URL: Produktiv-Domain www.psychotherapie-stella-savelsberg.de
+ *     (DNS muss in Vercel + beim Registrar noch verbunden werden).
  *   - business.geo: Koordinaten sind angenähert → exakte Lat/Lng verifizieren
  *     (z. B. über Google Maps Rechtsklick auf die Praxis-Adresse).
  *   - legal.berufshaftpflicht: tatsächliche Versicherung eintragen.
@@ -16,7 +16,7 @@
  *     ("NUR ZUR AUSWAHL") → lizenzierte Datei einsetzen (© Dieter Düvelmeyer).
  */
 
-export const SITE_URL = 'https://www.savelsberg-psychotherapie.de';
+export const SITE_URL = 'https://www.psychotherapie-stella-savelsberg.de';
 
 export const business = {
   name: 'Stella Savelsberg – Psychologische Psychotherapeutin',
