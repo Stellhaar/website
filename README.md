@@ -44,9 +44,7 @@ Kammer prüfen lassen.
    verbunden, SSL aktiv, apex → www).
 2. **Geo-Koordinaten:** `business.geo` exakt verifizieren.
 3. **Aufsichtsbehörde:** `legal.aufsicht` bestätigen (laut Kammer-Merkblatt).
-4. **Hero-Foto:** `public/assets/stella-sessel-fenster.jpg` trägt ein
-   „NUR ZUR AUSWAHL"-Wasserzeichen → lizenzierte Datei einsetzen (© Dieter Düvelmeyer).
-5. **Rechtstexte** final anwaltlich prüfen (siehe oben).
+4. **Rechtstexte** final anwaltlich prüfen (siehe oben).
 
 > Hinweis: Die Berufshaftpflicht-Angabe ist keine Impressumspflicht (§ 5 DDG);
 > sie wird gemäß § 2 DL-InfoV persönlich vor dem Erstgespräch mitgeteilt.

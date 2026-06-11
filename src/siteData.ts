@@ -11,8 +11,6 @@
  *   - business.geo: Koordinaten sind angenähert → exakte Lat/Lng verifizieren
  *     (z. B. über Google Maps Rechtsklick auf die Praxis-Adresse).
  *   - legal.aufsicht: laut Kammer-Merkblatt zuständig – vor Go-Live bestätigen.
- *   - Hero-Foto: assets/stella-sessel-fenster.jpg trägt noch ein Wasserzeichen
- *     ("NUR ZUR AUSWAHL") → lizenzierte Datei einsetzen (© Dieter Düvelmeyer).
  */
 
 export const SITE_URL = 'https://www.psychotherapie-stella-savelsberg.de';

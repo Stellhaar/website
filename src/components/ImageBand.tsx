@@ -1,8 +1,6 @@
 /**
  * Full-width hero image band.
- * ⚠️ assets/stella-sessel-fenster.jpg trägt noch ein Wasserzeichen
- *    ("NUR ZUR AUSWAHL") → vor Go-Live durch die lizenzierte Datei ersetzen
- *    (© Dieter Düvelmeyer), gleiche Maße/Ausschnitt.
+ * Foto © Dieter Düvelmeyer (lizenzierte Datei, ohne Wasserzeichen).
  */
 export default function ImageBand() {
   return (
