@@ -186,6 +186,35 @@ button:focus-visible {
   font-weight: 500;
   letter-spacing: -0.01em;
 }
+.stickybar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.stickybar .topnav {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.topnav-cta {
+  padding: 11px 22px;
+  font-size: 14px;
+  white-space: nowrap;
+  flex: none;
+}
+.topnav .brand {
+  white-space: nowrap;
+}
+@media (max-width: 680px) {
+  .topnav {
+    gap: 12px;
+  }
+  .topnav-cta {
+    padding: 9px 14px;
+    font-size: 12.5px;
+  }
+}
 .brand small {
   display: block;
   font-size: 11px;
@@ -856,6 +885,56 @@ footer {
 .legal strong {
   color: var(--ink);
   font-weight: 500;
+}
+
+/* Porträts in „Klare Zuständigkeiten" (Ketamin-Unterseite) */
+.rolle-foto {
+  margin: 28px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.rolle-foto img {
+  display: block;
+  width: 88px;
+  height: 88px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+.rolle-foto figcaption b {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.rolle-foto figcaption span {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* Krisenhinweis-Kasten (Ketamin-Unterseite) */
+.krise {
+  border: 1px solid var(--line);
+  background: var(--lav-soft);
+  padding: 28px 32px;
+  max-width: 34em;
+}
+@media (max-width: 680px) {
+  .krise {
+    padding: 22px 22px;
+  }
+}
+.about .krise p {
+  font-size: 16px;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.9;
+}
+.krise a {
+  color: var(--plum);
+  border-bottom: 1px solid currentColor;
 }
 
 /* scroll reveal */

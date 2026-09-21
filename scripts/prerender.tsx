@@ -17,7 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { renderToString } from 'react-dom/server';
 import App from '../src/App';
-import { SITE_URL, business, faqs } from '../src/siteData';
+import { SITE_URL, KETAMIN_PATH, business, faqs } from '../src/siteData';
 
 const DIST = path.join(process.cwd(), 'dist');
 const TEMPLATE = fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8');
@@ -45,13 +45,15 @@ interface Head {
 
 function applyHead(html: string, h: Head): string {
   let out = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(h.title)}</title>`);
-  out = sub(out, /(<meta name="description" content=")[^"]*(")/, h.description);
-  out = sub(out, /(<link rel="canonical" href=")[^"]*(")/, h.canonical);
-  out = sub(out, /(<meta property="og:title" content=")[^"]*(")/, h.title);
-  out = sub(out, /(<meta property="og:description" content=")[^"]*(")/, h.description);
-  out = sub(out, /(<meta property="og:url" content=")[^"]*(")/, h.canonical);
-  out = sub(out, /(<meta name="twitter:title" content=")[^"]*(")/, h.title);
-  out = sub(out, /(<meta name="twitter:description" content=")[^"]*(")/, h.description);
+  // `\s+` between name and content: index.html wraps the description tags over
+  // several lines, a single space would silently leave the homepage text in place.
+  out = sub(out, /(<meta\s+name="description"\s+content=")[^"]*(")/, h.description);
+  out = sub(out, /(<link\s+rel="canonical"\s+href=")[^"]*(")/, h.canonical);
+  out = sub(out, /(<meta\s+property="og:title"\s+content=")[^"]*(")/, h.title);
+  out = sub(out, /(<meta\s+property="og:description"\s+content=")[^"]*(")/, h.description);
+  out = sub(out, /(<meta\s+property="og:url"\s+content=")[^"]*(")/, h.canonical);
+  out = sub(out, /(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, h.title);
+  out = sub(out, /(<meta\s+name="twitter:description"\s+content=")[^"]*(")/, h.description);
   return out;
 }
 
@@ -118,6 +120,10 @@ const localBusiness = {
     therapy('Schematherapie', 'Weiterentwicklung der Verhaltenstherapie, die frühe Beziehungserfahrungen und wiederkehrende Muster bearbeitet.'),
     therapy('EMDR', 'Wissenschaftlich fundierte Methode zur Verarbeitung belastender oder traumatischer Erfahrungen.'),
     therapy('Emotionsfokussierte Psychotherapie', 'Arbeit an den emotionalen Wurzeln aktueller Belastungen.'),
+    therapy(
+      'Ketamin-gestützte Psychotherapie',
+      'Psychotherapeutische Vorbereitung und Integration einer ärztlich durchgeführten Ketaminbehandlung, in Kooperation mit einer neurologischen Praxis.',
+    ),
   ],
   founder: { '@id': personId },
   employee: { '@id': personId },
@@ -184,4 +190,16 @@ const ld = (schema: object, id: string) =>
   write('datenschutz', html);
 }
 
-console.log('✅ Prerender complete — home + impressum + datenschutz written to dist/');
+// Ketamin-gestützte Psychotherapie
+{
+  let html = applyHead(TEMPLATE, {
+    title: 'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof · Stella Savelsberg',
+    description:
+      'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof: psychotherapeutische Begleitung einer ärztlich durchgeführten Ketaminbehandlung, in Kooperation mit einer neurologischen Praxis. Bei Depressionen, Angst-, Trauma- und Zwangsstörungen sowie Burn-out.',
+    canonical: `${SITE_URL}${KETAMIN_PATH}`,
+  });
+  html = injectBody(html, renderToString(<App path={KETAMIN_PATH} />));
+  write(KETAMIN_PATH.slice(1), html);
+}
+
+console.log('✅ Prerender complete — home + impressum + datenschutz + ketamin written to dist/');

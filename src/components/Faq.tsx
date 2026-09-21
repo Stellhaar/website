@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react';
-import { faqs } from '../siteData';
+import { faqs, type FaqItem } from '../siteData';
 
 /**
  * "Häufige Fragen" — accordion. Only one question open at a time; "+" rotates to
  * "×". The answer opens via a max-height transition (matching the Atem V5 CSS),
  * the height being measured from the panel's scrollHeight.
+ *
+ * Defaults to the homepage FAQ; subpages pass their own `items`.
  */
-export default function Faq() {
+export default function Faq({ items = faqs }: { items?: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
   const answerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -19,7 +21,7 @@ export default function Faq() {
           <span className="lc" id="faq-lc">häufige fragen</span>
         </div>
         <div className="faq">
-          {faqs.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i;
             const panelId = `faq-panel-${i}`;
             const buttonId = `faq-button-${i}`;

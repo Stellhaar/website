@@ -5,6 +5,7 @@ const DOTS: { id: string; label: string }[] = [
   { id: 'ueber', label: 'Über mich' },
   { id: 'themen', label: 'Themen' },
   { id: 'schwerpunkte', label: 'Schwerpunkte' },
+  { id: 'ketamin', label: 'Ketamin-gestützte Psychotherapie' },
   { id: 'werdegang', label: 'Werdegang' },
   { id: 'ablauf', label: 'Ablauf' },
   { id: 'kontakt', label: 'Kontakt' },

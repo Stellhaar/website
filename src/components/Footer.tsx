@@ -1,4 +1,4 @@
-import { business } from '../siteData';
+import { business, KETAMIN_PATH } from '../siteData';
 
 /**
  * Footer. Impressum & Datenschutz sind in Deutschland gesetzlich verpflichtend
@@ -12,6 +12,7 @@ export default function Footer() {
         <div className="brand">{business.shortName} · Psychotherapie</div>
         <nav className="foot-links" aria-label="Rechtliches">
           <a href="/#ueber">Über mich</a>
+          <a href={KETAMIN_PATH}>Ketamin-gestützte Psychotherapie</a>
           <a href="/#kontakt">Kontakt</a>
           <a href="/impressum">Impressum</a>
           <a href="/datenschutz">Datenschutz</a>

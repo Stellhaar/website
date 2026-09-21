@@ -15,8 +15,8 @@ export default function TopNav() {
         <a href="#werdegang">Werdegang</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
-      <a href="#kontakt" className="lk">
-        E-Mail schreiben
+      <a href="#kontakt" className="pill topnav-cta">
+        Erstgespräch anfragen
       </a>
     </header>
   );

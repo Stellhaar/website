@@ -11,18 +11,35 @@ import Ablauf from './components/Ablauf';
 import Faq from './components/Faq';
 import Kontakt from './components/Kontakt';
 import Footer from './components/Footer';
+import KetaminTeaser from './components/KetaminTeaser';
+import KetaminPage from './components/KetaminPage';
 import Impressum from './components/legal/Impressum';
 import Datenschutz from './components/legal/Datenschutz';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { KETAMIN_PATH } from './siteData';
 
-export type Route = 'home' | 'impressum' | 'datenschutz';
+export type Route = 'home' | 'impressum' | 'datenschutz' | 'ketamin';
 
-/** Minimal path → route mapping (the legal pages are prerendered as static files). */
+/** Minimal path → route mapping (every subpage is prerendered as a static file). */
 export function routeFromPath(pathname: string): Route {
   const p = pathname.replace(/\/+$/, '');
   if (p.endsWith('/impressum')) return 'impressum';
   if (p.endsWith('/datenschutz')) return 'datenschutz';
+  if (p.endsWith(KETAMIN_PATH)) return 'ketamin';
   return 'home';
+}
+
+function renderRoute(route: Route) {
+  switch (route) {
+    case 'impressum':
+      return <Impressum />;
+    case 'datenschutz':
+      return <Datenschutz />;
+    case 'ketamin':
+      return <KetaminPage />;
+    default:
+      return <HomeView />;
+  }
 }
 
 function HomeView() {
@@ -36,6 +53,7 @@ function HomeView() {
         <About />
         <Behandlungsfelder />
         <Schwerpunkte />
+        <KetaminTeaser />
         <Werdegang />
         <Ablauf />
         <Faq />
@@ -52,17 +70,10 @@ export default function App({ path }: { path?: string }) {
 
   const pathname =
     path ?? (typeof window !== 'undefined' ? window.location.pathname : '/');
-  const route = routeFromPath(pathname);
 
   return (
     <>
-      {route === 'impressum' ? (
-        <Impressum />
-      ) : route === 'datenschutz' ? (
-        <Datenschutz />
-      ) : (
-        <HomeView />
-      )}
+      {renderRoute(routeFromPath(pathname))}
       {/* Cookieless, datensparsame Reichweitenmessung (siehe Datenschutzerklärung). */}
       <Analytics />
     </>

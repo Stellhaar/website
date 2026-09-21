@@ -159,3 +159,128 @@ export const ablauf: Schritt[] = [
   { title: 'Probatorik & Planung', text: 'Gemeinsam formulieren wir realistische Ziele und einen passenden Rahmen.' },
   { title: 'Therapie', text: 'In regelmäßigen Sitzungen arbeiten wir an Ihren Themen — in Ihrem Tempo.' },
 ];
+
+/**
+ * Ketamin-gestützte Psychotherapie: Unterseite (/ketamin-gestuetzte-psychotherapie)
+ * und ausführlicher Abschnitt auf der Startseite.
+ *
+ * ⚠️ Werberecht: Die Nennung des Wirkstoffs gegenüber Laien ist nach § 10 und
+ * § 3a HWG (BGH I ZR 74/25) riskant, siehe Entwurf in
+ * ~/Claude Code/stella-ketamin-entwurf/. Keine Suchterkrankungen nennen (§ 12 HWG),
+ * keine Erfolgsversprechen, keine Preise, keine Patientenstimmen.
+ */
+export const KETAMIN_PATH = '/ketamin-gestuetzte-psychotherapie';
+
+export const kooperationArzt = {
+  name: 'Dr. med. Johannes Brandl',
+  fach: 'Facharzt für Neurologie, Berlin',
+  praxis: 'Neurologische Praxis Tempelhof Dr. Brandl',
+  street: 'Friedrich-Wilhelm-Straße 68',
+  city: '12103 Berlin',
+} as const;
+
+export const ketaminIntro: string[] = [
+  'Ketamin-gestützte Psychotherapie verbindet eine psychotherapeutische Begleitung mit einer ärztlich durchgeführten Ketaminbehandlung. Ziel ist es, therapeutische Prozesse insbesondere bei psychischen Belastungen zu unterstützen.',
+  `Die Behandlung erfolgt in Kooperation mit der neurologischen Praxis von ${kooperationArzt.name} in unmittelbarer Umgebung. Gemeinsam wird ein individueller Behandlungsplan erstellt, der auf Ihre persönliche Situation und Ihre therapeutischen Ziele abgestimmt ist.`,
+];
+
+export const ketaminAnwendungen: string[] = [
+  'Depressionen',
+  'Angststörungen',
+  'Traumafolgestörungen',
+  'Zwangsstörungen',
+  'Burn-out',
+];
+
+export const ketaminAblauf: Schritt[] = [
+  {
+    title: 'Psychotherapeutisches Vorgespräch',
+    text: 'Klärung Ihrer Anliegen, Ziele und der persönlichen Situation sowie Vorbereitung auf die Behandlung.',
+  },
+  {
+    title: 'Ärztliches Vorgespräch',
+    text: `Medizinische Abklärung und Aufklärung über die Ketaminbehandlung in der neurologischen Praxis von ${kooperationArzt.name}.`,
+  },
+  {
+    title: 'Ketamin-Infusion',
+    text: 'Die medizinisch überwachte Infusion findet in der neurologischen Praxis statt.',
+  },
+  {
+    title: 'Psychotherapeutische Integration',
+    text: '24 bis 48 Stunden nach der Infusion ordnen wir gemeinsam ein, was Sie während der Behandlung erlebt haben, und lassen diese Erfahrungen in Ihren weiteren therapeutischen Prozess einfließen.',
+  },
+];
+
+export interface Rolle extends Schritt {
+  name: string;
+  role: string;
+  photo: string;
+}
+
+export const kooperationRollen: Rolle[] = [
+  {
+    name: business.person,
+    role: 'Psychologische Psychotherapeutin',
+    photo: '/assets/stella-savelsberg-portrait.jpg',
+    title: 'Psychotherapeutische Begleitung',
+    text: 'Meine Aufgabe: Vorbereitung im Gespräch, Begleitung rund um die ärztliche Behandlung und Integration, damit das Erlebte in Ihre laufende Psychotherapie einfließen kann.',
+  },
+  {
+    name: kooperationArzt.name,
+    role: 'Facharzt für Neurologie',
+    photo: '/assets/dr-johannes-brandl.jpg',
+    title: 'Ärztliche Verantwortung',
+    text: `${kooperationArzt.name}, ${kooperationArzt.fach}: Untersuchung, Entscheidung über die Behandlung, ärztliche Aufklärung, Durchführung der Ketamin-Infusion und medizinische Überwachung, in seiner Verantwortung und in seinen Praxisräumen.`,
+  },
+];
+
+export const ketaminFaqs: FaqItem[] = [
+  {
+    q: 'Was ist Ketamintherapie?',
+    a: 'Die Ketamintherapie ist ein alternativer Behandlungsansatz bei psychischen Erkrankungen. Dabei wird das Medikament Ketamin mit gezielt darauf abgestimmten psychotherapeutischen Maßnahmen verbunden. Bei manchen Patient:innen kann Ketamin die Stimmung verbessern und Depressionen, Ängste, Zwänge oder chronische Schmerzen lindern.',
+  },
+  {
+    q: 'Bei welchen psychischen Erkrankungen kann Ketamintherapie helfen?',
+    a: 'Ketamintherapie kann bei verschiedenen psychischen Erkrankungen gut wirken, etwa bei Depressionen, Angststörungen, posttraumatischen Belastungsstörungen (PTBS), Zwangsstörungen und chronischen Schmerzen.',
+  },
+  {
+    q: 'Wie wird Ketamin bei der Therapie verabreicht?',
+    a: `${kooperationArzt.name} richtet die Behandlung eng an wissenschaftlichen und medizinischen Standards aus. Ketamin wird deshalb über etwa 40 Minuten als Infusion in die Vene gegeben. Das hat mehrere Vorteile: Die Dosis lässt sich sehr genau steuern, und die Wirkung bleibt während der gesamten Infusion gleichmäßig. Die intravenöse Gabe ist gut kontrollierbar und geht meist mit weniger Nebenwirkungen einher. Wenn Sie sich während der Behandlung unwohl fühlen, kann die Infusion sofort gestoppt werden, und die Wirkung lässt in der Regel rasch nach.`,
+  },
+  {
+    q: 'Wo findet die ärztliche Behandlung statt?',
+    a: `Ärztliches Vorgespräch und Ketamin-Infusion finden in der Neurologischen Praxis Tempelhof statt: ${kooperationArzt.praxis}, ${kooperationArzt.street}, ${kooperationArzt.city}. Die Praxis liegt in unmittelbarer Nähe meiner Praxis in der Bosestraße.`,
+  },
+  {
+    q: 'Werde ich während der Ketaminbehandlung beaufsichtigt?',
+    a: 'Ja. Während der gesamten Behandlung werden Sie ärztlich persönlich betreut und medizinisch überwacht. Fühlen Sie sich unwohl, kann die Ketamingabe jederzeit unterbrochen werden, und die Wirkung klingt innerhalb weniger Minuten ab.',
+  },
+  {
+    q: 'Wie schnell wirkt Ketamin?',
+    a: 'Ketamin kann sehr schnell wirken, teilweise schon wenige Minuten nach Beginn der Infusion. Bei wiederholter Gabe mit psychotherapeutischer Begleitung können die Effekte nach wissenschaftlichen Studien über mehrere Monate oder länger anhalten. Wie lange die Wirkung anhält, ist von Person zu Person unterschiedlich.',
+  },
+  {
+    q: 'Gibt es Nebenwirkungen bei der Ketaminbehandlung?',
+    a: 'Über mögliche Nebenwirkungen klärt Sie der behandelnde Arzt medizinisch sorgfältig auf. Wie bei jedem medizinischen Verfahren können auch bei der Ketaminbehandlung Nebenwirkungen auftreten, zum Beispiel leichte Übelkeit, Schwindel und manchmal Kopfschmerzen oder ein erhöhter Blutdruck. Häufig tritt Mundtrockenheit auf, gelegentlich vermehrter Speichelfluss oder ein verändertes Geschmacksempfinden. Diese Beschwerden sind meist vorübergehend und klingen nach der Behandlung wieder ab.',
+  },
+  {
+    q: 'Gibt es eine Altersbegrenzung für die Ketamintherapie?',
+    a: 'Sie müssen mindestens 18 Jahre alt sein. Eine obere Altersgrenze gibt es im Grunde nicht: Entscheidend ist, dass der behandelnde Arzt keine Gegenanzeigen feststellt und Sie zur Behandlung zulässt.',
+  },
+  {
+    q: 'Wer entscheidet, ob eine Ketaminbehandlung für mich infrage kommt?',
+    a: 'Das entscheidet ausschließlich der Arzt nach persönlicher Untersuchung und ausführlicher Aufklärung über Nutzen, Risiken und Alternativen. Es gibt Gegenanzeigen, die Behandlung ist nicht für alle Menschen geeignet.',
+  },
+  {
+    q: 'Mit welchen Kosten muss ich rechnen?',
+    a: 'Das ärztliche Vorgespräch bei Dr. Brandl kostet 90,49 €. Für die Ketamin-Infusion fallen pro Behandlung 210,19 € an. Eine psychotherapeutische Sitzung kostet zwischen 120 und 140 €. Wie viele Termine sinnvoll sind, besprechen wir vorab gemeinsam, sodass Sie die Gesamtkosten gut einschätzen können.',
+  },
+  {
+    q: 'Übernimmt die Krankenkasse die Kosten?',
+    a: 'Es handelt sich um eine Selbstzahlerleistung. Private Versicherungen und Beihilfe entscheiden im Einzelfall. Über die voraussichtlichen Kosten informiere ich Sie vor Beginn schriftlich.',
+  },
+  {
+    q: 'Was passiert im Erstgespräch?',
+    a: 'Wir sprechen über Ihre bisherige Behandlung, Ihre aktuelle Situation und Ihre Erwartungen. Danach klären wir gemeinsam, ob eine Ketamin-gestützte Psychotherapie sinnvoll sein kann und ob das ärztliche Vorgespräch der nächste Schritt ist.',
+  },
+];
