@@ -1,7 +1,7 @@
 import Faq from './Faq';
 import Footer from './Footer';
 import { KetaminAblauf, KetaminAnwendungen } from './KetaminBlocks';
-import { business, ketaminFaqs, ketaminIntro, kooperationRollen } from '../siteData';
+import { business, KETAMIN_STAND, ketaminFaqs, ketaminIntro, kooperationRollen } from '../siteData';
 
 /**
  * Unterseite „Ketamin-gestützte Psychotherapie".
@@ -24,6 +24,12 @@ export default function KetaminPage() {
       </div>
 
       <main>
+        <nav className="crumbs wrap" aria-label="Brotkrumen-Navigation">
+          <a href="/">Startseite</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">Ketamin-gestützte Psychotherapie</span>
+        </nav>
+
         <section className="hero wrap" aria-labelledby="ketamin-title">
           <span className="lc">in kooperation mit einer neurologischen praxis</span>
           <h1 className="steady" id="ketamin-title">
@@ -47,7 +53,7 @@ export default function KetaminPage() {
             <div className="sec-lead reveal">
               <span className="lc">anwendungsbereiche</span>
               <h2 id="ketamin-anw" style={{ marginTop: 22 }}>
-                Wobei die Behandlung <em>eingesetzt</em> wird.
+                Anwendungsbereiche der <em>Ketamintherapie</em>.
               </h2>
             </div>
             <KetaminAnwendungen />
@@ -59,7 +65,7 @@ export default function KetaminPage() {
             <div className="sec-lead reveal">
               <span className="lc">ablauf</span>
               <h2 id="ketamin-ablauf" style={{ marginTop: 22 }}>
-                In vier <em>Schritten</em>.
+                Ablauf der <em>Ketaminbehandlung</em>.
               </h2>
             </div>
             <KetaminAblauf />
@@ -122,7 +128,7 @@ export default function KetaminPage() {
           </p>
         </section>
 
-        <Faq items={ketaminFaqs} />
+        <Faq items={ketaminFaqs} heading="Häufige Fragen zur Ketamintherapie" />
 
         <section className="sec line narrow about" aria-labelledby="ketamin-krise">
           <div className="sec-lead reveal">
@@ -161,13 +167,17 @@ export default function KetaminPage() {
           </div>
           <p className="reveal">
             Im Erstgespräch klären wir gemeinsam, ob eine Ketamin-gestützte
-            Psychotherapie für Sie sinnvoll sein kann.
+            Psychotherapie für Sie sinnvoll sein kann. Mehr zu meiner Arbeit finden Sie
+            unter <a href="/#schwerpunkte">therapeutische Verfahren</a>,{' '}
+            <a href="/#themen">Diagnosen und Themen</a> sowie{' '}
+            <a href="/#ablauf">Ablauf und Kosten</a>.
           </p>
           <div className="reveal" style={{ marginTop: 34 }}>
             <a href="/#kontakt" className="pill">
               Erstgespräch anfragen
             </a>
           </div>
+          <p className="stand reveal">Stand der Informationen: {KETAMIN_STAND}</p>
         </section>
       </main>
       <Footer />

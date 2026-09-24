@@ -48,3 +48,12 @@ Kammer prüfen lassen.
 
 > Hinweis: Die Berufshaftpflicht-Angabe ist keine Impressumspflicht (§ 5 DDG);
 > sie wird gemäß § 2 DL-InfoV persönlich vor dem Erstgespräch mitgeteilt.
+
+## SEO / GEO (Stand 09/2026)
+- `scripts/prerender.tsx` erzeugt Head-Meta, JSON-LD **und** `dist/sitemap.xml` (mit `lastmod`).
+  Die Sitemap wird nicht mehr in `public/` gepflegt.
+- JSON-LD: Startseite (MedicalBusiness, Person, FAQPage), Ketamin-Seite (MedicalWebPage,
+  MedicalProcedure, Physician, FAQPage, Breadcrumb).
+- Schriften liegen selbst gehostet in `public/fonts/` (`src/fonts.css`), keine Verbindung zu Google.
+- Vorschaubilder: `public/assets/og-praxis.jpg`, `og-ketamin.jpg` (je 1200x630).
+- Offen: `sameAs` im Schema, sobald die URL des Google-Unternehmensprofils vorliegt.

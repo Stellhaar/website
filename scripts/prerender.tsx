@@ -17,14 +17,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { renderToString } from 'react-dom/server';
 import App from '../src/App';
-import { SITE_URL, KETAMIN_PATH, business, faqs } from '../src/siteData';
+import {
+  SITE_URL,
+  KETAMIN_PATH,
+  business,
+  faqs,
+  ketaminAnwendungen,
+  ketaminFaqs,
+  ketaminIntro,
+  kooperationArzt,
+} from '../src/siteData';
 
 const DIST = path.join(process.cwd(), 'dist');
 const TEMPLATE = fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8');
 const IMAGE = `${SITE_URL}/assets/stella-sessel-fenster.jpg`;
+const OG_IMAGE = `${SITE_URL}/assets/og-praxis.jpg`;
+const OG_IMAGE_KETAMIN = `${SITE_URL}/assets/og-ketamin.jpg`;
+const PORTRAIT = `${SITE_URL}/assets/stella-savelsberg-portrait.jpg`;
+
+/** Build-Datum als dateModified / lastmod (ISO, ohne Uhrzeit). */
+const UPDATED = new Date().toISOString().slice(0, 10);
 
 const DESCRIPTION =
-  'Psychotherapeutische Praxis in Berlin-Tempelhof. Stella Savelsberg (M.Sc.), Psychologische Psychotherapeutin mit Schwerpunkt Verhaltenstherapie, ergänzt durch Schematherapie und EMDR. Für privat Versicherte, Beihilfeberechtigte und Selbstzahler:innen.';
+  'Verhaltenstherapie, Schematherapie und EMDR in Berlin-Tempelhof. Privatpraxis für privat Versicherte, Beihilfe und Selbstzahler:innen.';
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -41,6 +56,9 @@ interface Head {
   title: string;
   description: string;
   canonical: string;
+  /** Eigenes Vorschaubild; ohne Angabe bleibt das Praxis-Bild aus index.html stehen. */
+  image?: string;
+  ogType?: string;
 }
 
 function applyHead(html: string, h: Head): string {
@@ -54,6 +72,13 @@ function applyHead(html: string, h: Head): string {
   out = sub(out, /(<meta\s+property="og:url"\s+content=")[^"]*(")/, h.canonical);
   out = sub(out, /(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, h.title);
   out = sub(out, /(<meta\s+name="twitter:description"\s+content=")[^"]*(")/, h.description);
+  if (h.image) {
+    out = sub(out, /(<meta\s+property="og:image"\s+content=")[^"]*(")/, h.image);
+    out = sub(out, /(<meta\s+name="twitter:image"\s+content=")[^"]*(")/, h.image);
+  }
+  if (h.ogType) {
+    out = sub(out, /(<meta\s+property="og:type"\s+content=")[^"]*(")/, h.ogType);
+  }
   return out;
 }
 
@@ -104,7 +129,30 @@ const localBusiness = {
   hasMap: `https://www.google.com/maps?q=${encodeURIComponent(
     `${business.street}, ${business.postalCode} ${business.city}`,
   )}`,
-  areaServed: { '@type': 'City', name: 'Berlin' },
+  areaServed: [
+    { '@type': 'City', name: 'Berlin' },
+    { '@type': 'AdministrativeArea', name: 'Berlin-Tempelhof' },
+    { '@type': 'AdministrativeArea', name: 'Berlin-Schöneberg' },
+    { '@type': 'AdministrativeArea', name: 'Berlin-Mariendorf' },
+  ],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    description: business.openingHours,
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Terminanfrage',
+    email: business.email,
+    telephone: business.phoneHref,
+    availableLanguage: ['de'],
+  },
+  sameAs: [
+    // Google-Unternehmensprofil (Teilen-Link, Knowledge-Graph-ID /g/11ltpzqzv4)
+    'https://share.google/dRY4yqkHucodUGwlK',
+    // Verzeichniseintrag; Telefonnummer und Website dort noch ergänzen (siehe Plan, B3)
+    'https://www.therapie.de/profil/savelsberg/',
+  ],
   knowsAbout: [
     'Verhaltenstherapie',
     'Schematherapie',
@@ -112,8 +160,13 @@ const localBusiness = {
     'Emotionsfokussierte Psychotherapie',
     'Depression',
     'Angststörungen',
+    'Phobien',
     'Trauma',
     'Burnout',
+    'Essstörungen',
+    'Zwangsstörungen',
+    'Trauer',
+    'Ketamin-gestützte Psychotherapie',
   ],
   availableService: [
     therapy('Verhaltenstherapie', 'Belastende Denk- und Verhaltensmuster wahrnehmen, verstehen und schrittweise verändern.'),
@@ -137,19 +190,92 @@ const person = {
   jobTitle: business.jobTitle,
   worksFor: { '@id': praxisId },
   url: SITE_URL,
-  image: IMAGE,
   knowsAbout: ['Verhaltenstherapie', 'Schematherapie', 'EMDR', 'Psychotherapie'],
+  sameAs: ['https://share.google/dRY4yqkHucodUGwlK'],
+  image: PORTRAIT,
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'Ernst-Moritz-Arndt-Universität Greifswald' },
 };
 
 const faqPage = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  '@id': `${SITE_URL}/#faq`,
+  mainEntityOfPage: SITE_URL,
   mainEntity: faqs.map((f) => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
+};
+
+// ── Structured data (Ketamin-Unterseite) ─────────────────────────────────────
+
+const ketaminUrl = `${SITE_URL}${KETAMIN_PATH}`;
+
+const ketaminProcedure = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalProcedure',
+  '@id': `${ketaminUrl}#behandlung`,
+  name: 'Ketamin-gestützte Psychotherapie',
+  description: ketaminIntro[0],
+  procedureType: 'https://schema.org/NoninvasiveProcedure',
+  howPerformed:
+    'Psychotherapeutisches Vorgespräch, ärztliches Vorgespräch, medizinisch überwachte Ketamin-Infusion in der kooperierenden neurologischen Praxis und psychotherapeutische Integration 24 bis 48 Stunden danach.',
+  relevantSpecialty: 'Psychiatric',
+  availableService: ketaminAnwendungen.map((name) => ({ '@type': 'MedicalCondition', name })),
+  performer: [{ '@id': personId }, { '@id': `${ketaminUrl}#arzt` }],
+};
+
+const ketaminPhysician = {
+  '@context': 'https://schema.org',
+  '@type': 'Physician',
+  '@id': `${ketaminUrl}#arzt`,
+  name: kooperationArzt.name,
+  medicalSpecialty: 'Neurologic',
+  worksFor: {
+    '@type': 'MedicalOrganization',
+    name: kooperationArzt.praxis,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: kooperationArzt.street,
+      postalCode: kooperationArzt.city.split(' ')[0],
+      addressLocality: 'Berlin',
+      addressCountry: 'DE',
+    },
+  },
+};
+
+const ketaminFaqPage = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${ketaminUrl}#faq`,
+  mainEntityOfPage: ketaminUrl,
+  mainEntity: ketaminFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const ketaminPage = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  '@id': `${ketaminUrl}#webpage`,
+  url: ketaminUrl,
+  name: 'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof',
+  description: ketaminIntro[0],
+  inLanguage: 'de-DE',
+  dateModified: UPDATED,
+  isPartOf: { '@id': praxisId },
+  about: { '@id': `${ketaminUrl}#behandlung` },
+  provider: { '@id': praxisId },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Startseite', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Ketamin-gestützte Psychotherapie', item: ketaminUrl },
+    ],
+  },
 };
 
 const ld = (schema: object, id: string) =>
@@ -159,7 +285,13 @@ const ld = (schema: object, id: string) =>
 
 // Home (dist/index.html): keep the rich head from index.html, add JSON-LD.
 {
-  let html = injectBody(TEMPLATE, renderToString(<App path="/" />));
+  let html = applyHead(TEMPLATE, {
+    title: 'Psychotherapie Berlin-Tempelhof · Stella Savelsberg',
+    description: DESCRIPTION,
+    canonical: `${SITE_URL}/`,
+    image: OG_IMAGE,
+  });
+  html = injectBody(html, renderToString(<App path="/" />));
   html = injectJsonLd(html, [
     ld(localBusiness, 'ld-localbusiness'),
     ld(person, 'ld-person'),
@@ -171,7 +303,7 @@ const ld = (schema: object, id: string) =>
 // Impressum
 {
   let html = applyHead(TEMPLATE, {
-    title: 'Impressum · Stella Savelsberg Psychotherapie Berlin',
+    title: 'Impressum · Stella Savelsberg, Psychotherapie Berlin',
     description: 'Impressum und Anbieterkennzeichnung der psychotherapeutischen Praxis Stella Savelsberg in Berlin-Tempelhof.',
     canonical: `${SITE_URL}/impressum`,
   });
@@ -182,7 +314,7 @@ const ld = (schema: object, id: string) =>
 // Datenschutz
 {
   let html = applyHead(TEMPLATE, {
-    title: 'Datenschutzerklärung · Stella Savelsberg Psychotherapie Berlin',
+    title: 'Datenschutz · Stella Savelsberg, Psychotherapie Berlin',
     description: 'Datenschutzerklärung nach DSGVO der psychotherapeutischen Praxis Stella Savelsberg in Berlin-Tempelhof.',
     canonical: `${SITE_URL}/datenschutz`,
   });
@@ -193,13 +325,39 @@ const ld = (schema: object, id: string) =>
 // Ketamin-gestützte Psychotherapie
 {
   let html = applyHead(TEMPLATE, {
-    title: 'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof · Stella Savelsberg',
+    title: 'Ketamin-gestützte Psychotherapie · Berlin-Tempelhof',
     description:
-      'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof: psychotherapeutische Begleitung einer ärztlich durchgeführten Ketaminbehandlung, in Kooperation mit einer neurologischen Praxis. Bei Depressionen, Angst-, Trauma- und Zwangsstörungen sowie Burn-out.',
-    canonical: `${SITE_URL}${KETAMIN_PATH}`,
+      'Ketamin-gestützte Psychotherapie in Berlin-Tempelhof: ärztlich durchgeführte Behandlung mit psychotherapeutischer Begleitung. Ablauf, Anwendung, Kosten.',
+    canonical: ketaminUrl,
+    image: OG_IMAGE_KETAMIN,
+    ogType: 'article',
   });
   html = injectBody(html, renderToString(<App path={KETAMIN_PATH} />));
+  html = injectJsonLd(html, [
+    ld(ketaminPage, 'ld-webpage'),
+    ld(ketaminProcedure, 'ld-procedure'),
+    ld(ketaminPhysician, 'ld-physician'),
+    ld(ketaminFaqPage, 'ld-faq'),
+  ]);
   write(KETAMIN_PATH.slice(1), html);
 }
 
-console.log('✅ Prerender complete — home + impressum + datenschutz + ketamin written to dist/');
+// sitemap.xml mit lastmod erzeugen (überschreibt die Kopie aus public/).
+{
+  const urls: { loc: string; priority: string; changefreq: string }[] = [
+    { loc: `${SITE_URL}/`, priority: '1.0', changefreq: 'monthly' },
+    { loc: ketaminUrl, priority: '0.8', changefreq: 'monthly' },
+    { loc: `${SITE_URL}/impressum`, priority: '0.2', changefreq: 'yearly' },
+    { loc: `${SITE_URL}/datenschutz`, priority: '0.2', changefreq: 'yearly' },
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map(
+      (u) =>
+        `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${UPDATED}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`,
+    )
+    .join('\n')}\n</urlset>\n`;
+  fs.writeFileSync(path.join(DIST, 'sitemap.xml'), xml, 'utf-8');
+  console.log('  ✓  /sitemap.xml');
+}
+
+console.log('✅ Prerender complete — home + impressum + datenschutz + ketamin + sitemap written to dist/');

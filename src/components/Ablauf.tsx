@@ -8,7 +8,7 @@ export default function Ablauf() {
         <div className="sec-lead reveal">
           <span className="lc">ablauf &amp; kosten</span>
           <h2 id="ablauf-h" style={{ marginTop: 22 }}>
-            In vier <em>Schritten</em>.
+            Ablauf &amp; Kosten der <em>Therapie</em>.
           </h2>
         </div>
         <div className="steps">

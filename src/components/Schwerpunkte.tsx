@@ -8,7 +8,7 @@ export default function Schwerpunkte() {
         <div className="sec-lead reveal">
           <span className="lc">therapeutische schwerpunkte</span>
           <h2 id="schwerpunkte-h" style={{ marginTop: 22 }}>
-            Vier <em>Verfahren</em>.
+            Meine therapeutischen <em>Verfahren</em>.
           </h2>
         </div>
         <div className="swp">

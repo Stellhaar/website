@@ -171,6 +171,9 @@ export const ablauf: Schritt[] = [
  */
 export const KETAMIN_PATH = '/ketamin-gestuetzte-psychotherapie';
 
+/** Sichtbares Stand-Datum der Ketamin-Seite; bei inhaltlichen Änderungen mitziehen. */
+export const KETAMIN_STAND = 'September 2026';
+
 export const kooperationArzt = {
   name: 'Dr. med. Johannes Brandl',
   fach: 'Facharzt für Neurologie, Berlin',

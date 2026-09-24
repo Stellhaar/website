@@ -1,9 +1,12 @@
 /** "Über mich" — narrow single-column intro with signature. */
 export default function About() {
   return (
-    <section className="sec narrow about" id="ueber" aria-labelledby="ueber-lc">
+    <section className="sec narrow about" id="ueber" aria-labelledby="ueber-h">
       <div className="sec-lead reveal">
-        <span className="lc" id="ueber-lc">über mich</span>
+        <span className="lc">über mich</span>
+        <h2 id="ueber-h" style={{ marginTop: 22 }}>
+          Psychologische <em>Psychotherapeutin</em> in Berlin-Tempelhof.
+        </h2>
       </div>
       <p className="reveal">
         Als psychologische Psychotherapeutin mit dem Schwerpunkt Verhaltenstherapie

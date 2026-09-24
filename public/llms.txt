@@ -47,3 +47,6 @@ Berlin-Tempelhof, Deutschland
 
 ## Sprache
 Deutsch
+
+## Stand
+September 2026

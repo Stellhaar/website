@@ -12,8 +12,9 @@
 :root {
   --bg: #fbfaf9;
   --ink: #33303a;
-  --ink-soft: #8c8794;
-  --plum: #8073a0;
+  --ink-soft: #77717f; /* + auf 4,5:1 gegen --bg angehoben (WCAG AA) */
+  --plum: #8073a0; /* dekorativ + große Headlines */
+  --plum-ink: #6b5d8f; /* + kleiner Text auf --bg und Weiß auf Fläche (AA) */
   --plum-deep: #574b70;
   --lav-soft: #efecf3;
   --line: #ebe8ec;
@@ -85,7 +86,7 @@ button:focus-visible {
 .lc {
   font-size: 12px;
   letter-spacing: 0.04em;
-  color: var(--plum);
+  color: var(--plum-ink);
   font-weight: 500;
   text-transform: lowercase;
   display: inline-flex;
@@ -234,9 +235,9 @@ button:focus-visible {
 }
 .lk {
   font-size: 14px;
-  color: var(--plum);
+  color: var(--plum-ink);
   font-weight: 500;
-  border-bottom: 1px solid var(--plum);
+  border-bottom: 1px solid var(--plum-ink);
   padding-bottom: 2px;
   transition: 0.2s;
 }
@@ -314,7 +315,7 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--plum);
+  background: var(--plum-ink);
   color: #fff;
   padding: 14px 28px;
   border-radius: 999px;
@@ -875,7 +876,7 @@ footer {
   margin-bottom: 6px;
 }
 .legal a {
-  color: var(--plum);
+  color: var(--plum-ink);
   border-bottom: 1px solid var(--line);
 }
 .legal a:hover {
@@ -885,6 +886,42 @@ footer {
 .legal strong {
   color: var(--ink);
   font-weight: 500;
+}
+
+/* Stand-Datum unter dem letzten Abschnitt */
+.stand {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* Brotkrumen-Navigation */
+.crumbs {
+  padding-top: 26px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.crumbs a {
+  color: var(--plum-deep);
+  border-bottom: 1px solid var(--line);
+}
+.crumbs a:hover {
+  border-color: var(--plum-deep);
+}
+.legal .crumbs {
+  padding-top: 0;
+  margin-bottom: 26px;
+}
+.about p a {
+  color: var(--plum-deep);
+  border-bottom: 1px solid var(--line);
+}
+.about p a:hover {
+  border-color: var(--plum-deep);
 }
 
 /* Porträts in „Klare Zuständigkeiten" (Ketamin-Unterseite) */
@@ -933,7 +970,7 @@ footer {
   line-height: 1.9;
 }
 .krise a {
-  color: var(--plum);
+  color: var(--plum-ink);
   border-bottom: 1px solid currentColor;
 }
 

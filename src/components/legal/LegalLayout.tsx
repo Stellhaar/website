@@ -22,6 +22,11 @@ export default function LegalLayout({
         <a href="/" className="lk">Zur Startseite</a>
       </header>
       <main className="legal narrow">
+        <nav className="crumbs" aria-label="Brotkrumen-Navigation">
+          <a href="/">Startseite</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">{title}</span>
+        </nav>
         <h1 className="legal-title">{title}</h1>
         {updated && <p className="updated">Stand: {updated}</p>}
         {children}

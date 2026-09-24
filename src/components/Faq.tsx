@@ -8,17 +8,26 @@ import { faqs, type FaqItem } from '../siteData';
  *
  * Defaults to the homepage FAQ; subpages pass their own `items`.
  */
-export default function Faq({ items = faqs }: { items?: FaqItem[] }) {
+export default function Faq({
+  items = faqs,
+  heading = 'Häufige Fragen zur Psychotherapie',
+}: {
+  items?: FaqItem[];
+  heading?: string;
+}) {
   const [open, setOpen] = useState<number | null>(null);
   const answerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const toggle = (i: number) => setOpen((cur) => (cur === i ? null : i));
 
   return (
-    <section className="sec line" id="faq" aria-labelledby="faq-lc">
+    <section className="sec line" id="faq" aria-labelledby="faq-h">
       <div className="narrow">
         <div className="sec-lead reveal">
-          <span className="lc" id="faq-lc">häufige fragen</span>
+          <span className="lc">häufige fragen</span>
+          <h2 id="faq-h" style={{ marginTop: 22 }}>
+            {heading}
+          </h2>
         </div>
         <div className="faq">
           {items.map((item, i) => {

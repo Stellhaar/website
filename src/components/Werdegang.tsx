@@ -8,7 +8,7 @@ export default function Werdegang() {
         <div className="sec-lead reveal">
           <span className="lc">qualifikationen &amp; werdegang</span>
           <h2 id="werdegang-h" style={{ marginTop: 22 }}>
-            Ausbildung &amp; <em>Stationen</em>.
+            Ausbildung &amp; <em>Qualifikationen</em>.
           </h2>
         </div>
         <div className="led">
