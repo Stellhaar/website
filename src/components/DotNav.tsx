@@ -3,11 +3,11 @@ import { useScrollSpy } from '../hooks/useScrollSpy';
 const DOTS: { id: string; label: string }[] = [
   { id: 'top', label: 'Start' },
   { id: 'ueber', label: 'Über mich' },
-  { id: 'themen', label: 'Themen' },
-  { id: 'schwerpunkte', label: 'Schwerpunkte' },
+  { id: 'themen', label: 'Diagnosen & Themen' },
+  { id: 'schwerpunkte', label: 'Therapeutische Verfahren' },
   { id: 'ketamin', label: 'Ketamin-gestützte Psychotherapie' },
-  { id: 'werdegang', label: 'Werdegang' },
-  { id: 'ablauf', label: 'Ablauf' },
+  { id: 'werdegang', label: 'Ausbildung & Qualifikationen' },
+  { id: 'ablauf', label: 'Ablauf & Kosten' },
   { id: 'kontakt', label: 'Kontakt' },
 ];
 

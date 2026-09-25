@@ -1,7 +1,8 @@
 import Faq from './Faq';
+import TopNav from './TopNav';
 import Footer from './Footer';
 import { KetaminAblauf, KetaminAnwendungen } from './KetaminBlocks';
-import { business, KETAMIN_STAND, ketaminFaqs, ketaminIntro, kooperationRollen } from '../siteData';
+import { KETAMIN_STAND, ketaminFaqs, ketaminIntro, kooperationRollen } from '../siteData';
 
 /**
  * Unterseite „Ketamin-gestützte Psychotherapie".
@@ -11,17 +12,7 @@ export default function KetaminPage() {
   return (
     <>
       {/* Sticky, damit „Erstgespräch anfragen" beim Scrollen immer erreichbar bleibt. */}
-      <div className="stickybar">
-      <header className="topnav">
-        <a className="brand" href="/">
-          {business.shortName}
-          <small>Psychotherapie · Berlin</small>
-        </a>
-        <a href="/#kontakt" className="pill topnav-cta">
-          Erstgespräch anfragen
-        </a>
-      </header>
-      </div>
+      <TopNav sticky />
 
       <main>
         <nav className="crumbs wrap" aria-label="Brotkrumen-Navigation">

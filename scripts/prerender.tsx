@@ -20,12 +20,19 @@ import App from '../src/App';
 import {
   SITE_URL,
   KETAMIN_PATH,
+  KETAMIN_STAND,
+  ablauf,
+  behandlungsfelder,
   business,
   faqs,
+  ketaminAblauf,
   ketaminAnwendungen,
   ketaminFaqs,
   ketaminIntro,
   kooperationArzt,
+  legal,
+  schwerpunkte,
+  werdegang,
 } from '../src/siteData';
 
 const DIST = path.join(process.cwd(), 'dist');
@@ -222,7 +229,11 @@ const ketaminProcedure = {
   howPerformed:
     'Psychotherapeutisches Vorgespräch, ärztliches Vorgespräch, medizinisch überwachte Ketamin-Infusion in der kooperierenden neurologischen Praxis und psychotherapeutische Integration 24 bis 48 Stunden danach.',
   relevantSpecialty: 'Psychiatric',
-  availableService: ketaminAnwendungen.map((name) => ({ '@type': 'MedicalCondition', name })),
+  availableService: ketaminAnwendungen.map((a) => ({
+    '@type': 'MedicalCondition',
+    name: a.title,
+    description: a.text,
+  })),
   performer: [{ '@id': personId }, { '@id': `${ketaminUrl}#arzt` }],
 };
 
@@ -340,6 +351,100 @@ const ld = (schema: object, id: string) =>
     ld(ketaminFaqPage, 'ld-faq'),
   ]);
   write(KETAMIN_PATH.slice(1), html);
+}
+
+// llms.txt aus siteData erzeugen: vollständiger Klartext-Abriss der Website für
+// Antwortmaschinen und für Menschen, die die Seite in einen Chat kopieren.
+{
+  const line = (s: string) => s.replace(/\s+/g, ' ').trim();
+  const faqBlock = (items: { q: string; a: string }[]) =>
+    items.map((f) => `### ${f.q}\n${line(f.a)}`).join('\n\n');
+
+  const txt = [
+    `# ${business.name} (${business.district})`,
+    '',
+    `Stand: ${KETAMIN_STAND}. Quelle: ${SITE_URL}`,
+    '',
+    '## Über die Praxis',
+    'Psychotherapeutische Praxis für Erwachsene in Berlin-Tempelhof.',
+    `${business.person}, ${business.jobTitle}, mit Approbation.`,
+    'Schwerpunkt Verhaltenstherapie, ergänzt durch Schematherapie, emotionsfokussierte Arbeit und EMDR.',
+    '',
+    '## Kontakt und Anfahrt',
+    `Adresse: ${business.street}, ${business.postalCode} ${business.city} (${business.district})`,
+    `E-Mail: ${business.email}`,
+    `Telefon: ${business.phone}`,
+    `Termine: ${business.openingHours}`,
+    'Kontaktaufnahme bevorzugt per E-Mail mit kurzer Schilderung des Anliegens.',
+    '',
+    '## Therapeutische Verfahren',
+    ...schwerpunkte.map(
+      (v) => `- ${v.title} (${v.subtitle.charAt(0).toUpperCase()}${v.subtitle.slice(1)}): ${line(v.text)}`,
+    ),
+    '',
+    '## Behandlungsfelder',
+    ...behandlungsfelder.map((b) => `- ${b}`),
+    '',
+    '## Ablauf einer Psychotherapie',
+    ...ablauf.map((sch, i) => `${i + 1}. ${sch.title}: ${line(sch.text)}`),
+    '',
+    '## Abrechnung',
+    'Privat Krankenversicherte, Beihilfeberechtigte und Selbstzahler:innen.',
+    'Gesetzlich Versicherte können die Behandlung als Selbstzahler:innen wahrnehmen.',
+    'Abrechnung nach der Gebührenordnung für Psychotherapeuten (GOP).',
+    'Eine psychotherapeutische Sitzung kostet zwischen 120 und 140 Euro.',
+    '',
+    '## Qualifikationen und Werdegang',
+    ...werdegang.map((st) => `- ${st.period}: ${st.title}, ${st.org}`),
+    '',
+    '## Ketamin-gestützte Psychotherapie',
+    line(ketaminIntro[0]),
+    line(ketaminIntro[1]),
+    `Seite: ${SITE_URL}${KETAMIN_PATH}`,
+    '',
+    '### Anwendungsbereiche',
+    ...ketaminAnwendungen.map((a) => `- ${a.title}: ${line(a.text)}`),
+    '',
+    '### Ablauf',
+    ...ketaminAblauf.map((sch, i) => `${i + 1}. ${sch.title}: ${line(sch.text)}`),
+    '',
+    '### Ärztlicher Kooperationspartner',
+    `${kooperationArzt.name}, ${kooperationArzt.fach}`,
+    `${kooperationArzt.praxis}, ${kooperationArzt.street}, ${kooperationArzt.city}`,
+    'Indikationsstellung, Aufklärung, Durchführung und medizinische Überwachung liegen in ärztlicher Verantwortung.',
+    '',
+    '### Kosten',
+    'Selbstzahlerleistung, die gesetzliche Krankenversicherung übernimmt die Kosten in der Regel nicht.',
+    `Ärztliches Vorgespräch 90,49 Euro, Ketamin-Infusion 210,19 Euro pro Behandlung, psychotherapeutische Sitzung 120 bis 140 Euro.`,
+    '',
+    '## Häufige Fragen zur Psychotherapie',
+    '',
+    faqBlock(faqs),
+    '',
+    '## Häufige Fragen zur Ketamintherapie',
+    '',
+    faqBlock(ketaminFaqs),
+    '',
+    '## In einer akuten Krise',
+    'Notruf 112 · Ärztlicher Bereitschaftsdienst 116 117 · TelefonSeelsorge 0800 111 0 111 oder 0800 111 0 222 · Berliner Krisendienst (berliner-krisendienst.de) · Rettungsstelle der nächsten psychiatrischen Klinik.',
+    '',
+    '## Seiten',
+    `- Startseite: ${SITE_URL}/`,
+    `- Ketamin-gestützte Psychotherapie: ${SITE_URL}${KETAMIN_PATH}`,
+    `- Impressum: ${SITE_URL}/impressum`,
+    `- Datenschutzerklärung: ${SITE_URL}/datenschutz`,
+    '',
+    '## Rechtliches',
+    `Berufsbezeichnung: ${legal.berufsbezeichnung}, verliehen in der ${legal.verleihStaat}.`,
+    `Zuständige Kammer: ${legal.kammer.name}, ${legal.kammer.street}, ${legal.kammer.city}.`,
+    '',
+    '## Sprache',
+    'Deutsch',
+    '',
+  ].join('\n');
+
+  fs.writeFileSync(path.join(DIST, 'llms.txt'), txt, 'utf-8');
+  console.log('  ✓  /llms.txt');
 }
 
 // sitemap.xml mit lastmod erzeugen (überschreibt die Kopie aus public/).

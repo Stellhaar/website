@@ -174,6 +174,41 @@ export const KETAMIN_PATH = '/ketamin-gestuetzte-psychotherapie';
 /** Sichtbares Stand-Datum der Ketamin-Seite; bei inhaltlichen Änderungen mitziehen. */
 export const KETAMIN_STAND = 'September 2026';
 
+/**
+ * Hauptnavigation (Header, Desktop-Dropdowns und mobiles Panel).
+ *
+ * Absolute Ziele, damit dieselbe Navigation auf Startseite, Unterseite und
+ * Rechtsseiten funktioniert. Die Linktexte tragen die Suchbegriffe — sie sind
+ * bewusst sprechender als die früheren Kurzlabels („Themen", „Schwerpunkte").
+ */
+export interface NavItem {
+  label: string;
+  href: string;
+  items?: { label: string; href: string }[];
+}
+
+export const mainNav: NavItem[] = [
+  {
+    label: 'Über mich',
+    href: '/#ueber',
+    items: [
+      { label: 'Über mich', href: '/#ueber' },
+      { label: 'Ausbildung & Qualifikationen', href: '/#werdegang' },
+    ],
+  },
+  {
+    label: 'Therapieangebot',
+    href: '/#themen',
+    items: [
+      { label: 'Diagnosen & Themen', href: '/#themen' },
+      { label: 'Therapeutische Verfahren', href: '/#schwerpunkte' },
+      { label: 'Ketamin-gestützte Psychotherapie', href: KETAMIN_PATH },
+      { label: 'Ablauf & Kosten', href: '/#ablauf' },
+    ],
+  },
+  { label: 'Kontakt', href: '/#kontakt' },
+];
+
 export const kooperationArzt = {
   name: 'Dr. med. Johannes Brandl',
   fach: 'Facharzt für Neurologie, Berlin',
@@ -187,12 +222,33 @@ export const ketaminIntro: string[] = [
   `Die Behandlung erfolgt in Kooperation mit der neurologischen Praxis von ${kooperationArzt.name} in unmittelbarer Umgebung. Gemeinsam wird ein individueller Behandlungsplan erstellt, der auf Ihre persönliche Situation und Ihre therapeutischen Ziele abgestimmt ist.`,
 ];
 
-export const ketaminAnwendungen: string[] = [
-  'Depressionen',
-  'Angststörungen',
-  'Traumafolgestörungen',
-  'Zwangsstörungen',
-  'Burn-out',
+export interface Anwendung {
+  title: string;
+  text: string;
+}
+
+/** Anwendungsbereiche der Ketamintherapie. Bewusst beschreibend, ohne Wirkversprechen (§ 3 HWG). */
+export const ketaminAnwendungen: Anwendung[] = [
+  {
+    title: 'Depressionen',
+    text: 'Anhaltende Niedergeschlagenheit, Antriebslosigkeit und Freudlosigkeit, besonders wenn mehrere Behandlungsversuche bisher nicht ausreichend geholfen haben.',
+  },
+  {
+    title: 'Angststörungen',
+    text: 'Starke Ängste, Panikattacken oder Vermeidungsverhalten, die den Alltag und das Berufsleben einschränken.',
+  },
+  {
+    title: 'Traumafolgestörungen',
+    text: 'Belastungen nach schwierigen oder traumatischen Erfahrungen, etwa aufdrängende Erinnerungen, Schreckhaftigkeit und innere Anspannung.',
+  },
+  {
+    title: 'Zwangsstörungen',
+    text: 'Wiederkehrende Gedanken und Handlungen, die sich nur schwer unterbrechen lassen und viel Zeit kosten.',
+  },
+  {
+    title: 'Burn-out',
+    text: 'Anhaltende Erschöpfung nach langer Überlastung, oft verbunden mit Schlafproblemen, Reizbarkeit und innerem Rückzug.',
+  },
 ];
 
 export const ketaminAblauf: Schritt[] = [

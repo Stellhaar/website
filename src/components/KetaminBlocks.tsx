@@ -1,13 +1,14 @@
 import { ketaminAblauf, ketaminAnwendungen } from '../siteData';
 
-/** Anwendungsbereiche als nummerierte Liste (gleiches Raster wie „Behandlungsfelder"). */
+/** Anwendungsbereiche mit Kurzbeschreibung (gleiches Zeilenraster wie die Verfahren). */
 export function KetaminAnwendungen() {
   return (
-    <div className="diag">
-      {ketaminAnwendungen.map((label, i) => (
-        <div className="di reveal" key={label}>
-          <span className="ix">{String(i + 1).padStart(2, '0')}</span>
-          <span className="lb">{label}</span>
+    <div className="swp">
+      {ketaminAnwendungen.map((a, i) => (
+        <div className="row reveal" key={a.title}>
+          <div className="ix">{String(i + 1).padStart(2, '0')}</div>
+          <h3>{a.title}</h3>
+          <p>{a.text}</p>
         </div>
       ))}
     </div>

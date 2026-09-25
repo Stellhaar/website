@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Footer from '../Footer';
-import { business } from '../../siteData';
+import TopNav from '../TopNav';
 
 /** Shared chrome for the Impressum / Datenschutz pages: brand header + footer. */
 export default function LegalLayout({
@@ -14,13 +14,7 @@ export default function LegalLayout({
 }) {
   return (
     <>
-      <header className="topnav">
-        <a className="brand" href="/">
-          {business.shortName}
-          <small>Psychotherapie · Berlin</small>
-        </a>
-        <a href="/" className="lk">Zur Startseite</a>
-      </header>
+      <TopNav sticky />
       <main className="legal narrow">
         <nav className="crumbs" aria-label="Brotkrumen-Navigation">
           <a href="/">Startseite</a>
