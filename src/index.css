@@ -1014,6 +1014,17 @@ footer {
   font-weight: 500;
 }
 
+/* Agentur-Hinweis in der unteren Footer-Zeile */
+.foot .credit a {
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  transition: 0.2s;
+}
+.foot .credit a:hover {
+  color: var(--plum-ink);
+  border-color: var(--plum-ink);
+}
+
 /* Stand-Datum unter dem letzten Abschnitt */
 .stand {
   margin-top: 40px;

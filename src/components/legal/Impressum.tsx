@@ -1,5 +1,5 @@
 import LegalLayout from './LegalLayout';
-import { business, legal } from '../../siteData';
+import { agentur, business, legal } from '../../siteData';
 
 /**
  * Impressum (Anbieterkennzeichnung) nach § 5 DDG + heilberufliche Pflichtangaben.
@@ -87,6 +87,16 @@ export default function Impressum() {
       <p>
         Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor
         einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
+      </p>
+
+      <h2>Umsetzung der Website</h2>
+      <p>
+        Konzeption, Gestaltung und technische Umsetzung dieser Website:{' '}
+        <a href={agentur.url} rel="noopener">
+          {agentur.name}
+        </a>
+        . Für die Inhalte dieser Website ist ausschließlich die oben genannte
+        Anbieterin verantwortlich.
       </p>
 
       <h2>Bildnachweis</h2>

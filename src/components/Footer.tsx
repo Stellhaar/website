@@ -1,9 +1,9 @@
-import { business, KETAMIN_PATH } from '../siteData';
+import { agentur, business, KETAMIN_PATH } from '../siteData';
 
 /**
  * Footer. Impressum & Datenschutz sind in Deutschland gesetzlich verpflichtend
- * (Impressumspflicht, DSGVO). ⚠️ Eigene Seiten anlegen und hier verlinken
- * (aktuell Platzhalter "#").
+ * (Impressumspflicht, DSGVO). Die untere Zeile trägt zusätzlich den dezenten
+ * Hinweis auf die umsetzende Agentur (Details im Impressum).
  */
 export default function Footer() {
   return (
@@ -22,6 +22,12 @@ export default function Footer() {
         <span>
           © {new Date().getFullYear()} {business.shortName} · {business.street},{' '}
           {business.postalCode} {business.district}
+        </span>
+        <span className="credit">
+          Website von{' '}
+          <a href={agentur.url} rel="noopener">
+            {agentur.name}
+          </a>
         </span>
       </div>
     </footer>

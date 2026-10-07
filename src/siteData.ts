@@ -58,6 +58,12 @@ export const legal = {
   regelungenFundstelle: 'https://www.psychotherapeutenkammer-berlin.de',
 } as const;
 
+/** Umsetzung der Website (Impressum-Angabe und Footer-Hinweis). */
+export const agentur = {
+  name: 'AI SETTA',
+  url: 'https://ai-setta.com',
+} as const;
+
 export interface FaqItem {
   q: string;
   a: string;
