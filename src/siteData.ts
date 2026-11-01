@@ -236,31 +236,23 @@ export interface Anwendung {
 /** Anwendungsbereiche der Ketamintherapie. Bewusst beschreibend, ohne Wirkversprechen (§ 3 HWG). */
 export const ketaminAnwendungen: Anwendung[] = [
   {
-    title: 'Depressionen',
-    text: 'Anhaltende Niedergeschlagenheit, Antriebslosigkeit und Freudlosigkeit, besonders wenn mehrere Behandlungsversuche bisher nicht ausreichend geholfen haben.',
-  },
-  {
-    title: 'Angststörungen',
-    text: 'Starke Ängste, Panikattacken oder Vermeidungsverhalten, die den Alltag und das Berufsleben einschränken.',
+    title: 'Therapieresistente Depression',
+    text: 'Eine Depression, die auf mehrere fachgerecht durchgeführte Behandlungen bisher nicht ausreichend angesprochen hat.',
   },
   {
     title: 'Traumafolgestörungen',
     text: 'Belastungen nach schwierigen oder traumatischen Erfahrungen, etwa aufdrängende Erinnerungen, Schreckhaftigkeit und innere Anspannung.',
-  },
-  {
-    title: 'Zwangsstörungen',
-    text: 'Wiederkehrende Gedanken und Handlungen, die sich nur schwer unterbrechen lassen und viel Zeit kosten.',
-  },
-  {
-    title: 'Burn-out',
-    text: 'Anhaltende Erschöpfung nach langer Überlastung, oft verbunden mit Schlafproblemen, Reizbarkeit und innerem Rückzug.',
   },
 ];
 
 export const ketaminAblauf: Schritt[] = [
   {
     title: 'Psychotherapeutisches Vorgespräch',
-    text: 'Klärung Ihrer Anliegen, Ziele und der persönlichen Situation sowie Vorbereitung auf die Behandlung.',
+    text: 'Klärung Ihrer Anliegen, Ziele und der persönlichen Situation.',
+  },
+  {
+    title: 'Probatorische Sitzungen',
+    text: 'Vor einer Ketaminbehandlung finden mindestens vier probatorische Sitzungen in meiner Praxis statt. Darin bereiten wir die Behandlung gemeinsam vor.',
   },
   {
     title: 'Ärztliches Vorgespräch',
@@ -305,8 +297,12 @@ export const ketaminFaqs: FaqItem[] = [
     a: 'Die Ketamintherapie ist ein alternativer Behandlungsansatz bei psychischen Erkrankungen. Dabei wird das Medikament Ketamin mit gezielt darauf abgestimmten psychotherapeutischen Maßnahmen verbunden. Bei manchen Patient:innen kann Ketamin die Stimmung verbessern und Depressionen, Ängste, Zwänge oder chronische Schmerzen lindern.',
   },
   {
-    q: 'Bei welchen psychischen Erkrankungen kann Ketamintherapie helfen?',
-    a: 'Ketamintherapie kann bei verschiedenen psychischen Erkrankungen gut wirken, etwa bei Depressionen, Angststörungen, posttraumatischen Belastungsstörungen (PTBS), Zwangsstörungen und chronischen Schmerzen.',
+    q: 'Bei welchen Erkrankungen kommt eine Ketamintherapie infrage?',
+    a: 'Wir setzen das Verfahren bei therapieresistenter Depression und bei Traumafolgestörungen ein. Für weitere Anwendungsgebiete ist die wissenschaftliche Evidenz aus unserer Sicht derzeit nicht ausreichend, deshalb bieten wir sie nicht an.',
+  },
+  {
+    q: 'Kann ich direkt mit einer Ketaminbehandlung beginnen?',
+    a: 'Nein. Vorausgesetzt sind ein psychotherapeutisches Vorgespräch und mindestens vier probatorische Sitzungen in meiner Praxis. Erst danach klären wir gemeinsam mit dem Arzt, ob eine Ketaminbehandlung für Sie infrage kommt.',
   },
   {
     q: 'Wie wird Ketamin bei der Therapie verabreicht?',

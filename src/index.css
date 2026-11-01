@@ -690,6 +690,11 @@ button:focus-visible {
   color: var(--ink-soft);
   font-weight: 300;
 }
+/* Ungerade Anzahl: die letzte Karte füllt die Zeile, damit keine leere
+   Rasterzelle (in der Farbe der Hairline) stehen bleibt. */
+.steps .s:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
 @media (max-width: 620px) {
   .steps {
     grid-template-columns: 1fr;
